@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">WifiRate</string>
-    <string name="action_settings">Settings</string>  
-    <string name="wifi_on">Enabling WiFi</string>  
-    <string name="btn_scan_text">Scan</string>  
-
-</resources>
