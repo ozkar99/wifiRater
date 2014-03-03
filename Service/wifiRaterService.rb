@@ -32,19 +32,21 @@ get '/Ratings/?' do
 
 	#dem whole ratings
     rs = con.query("SELECT * FROM Ratings")
-
+    
+    output = Array.new
     #iterate over sets of data
-    rs.each do |col|
-            col.to_json()
+    rs.each_hash do |col|
+        output << col
     end
 
+    return output.to_json()
 
 end
 
 #Send bssid and rating pair
 get '/Ratings/:bssid/?' do
     rs = con.query("SELECT * FROM Ratings WHERE bssid='#{params[:bssid]}'")
-    rs.fetch_row().to_json()
+    rs.fetch_hash().to_json()
 end 
 
 #Recieve new rating for bssid
