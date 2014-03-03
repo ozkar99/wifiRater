@@ -71,11 +71,11 @@ end
 
 ################### User hashes:#########################
 get '/User/?' do
-    "Nigga, please... especify userame pls";
+    "Nigga please...</br>especify username";
 end
 
 #Send user hashed passwd
 get '/User/:user/?' do
     rs = con.query("SELECT passwd FROM Users WHERE user='#{params[:user]}'")
-    rs.fetch_row().to_json()
+    rs.fetch_row()
 end
