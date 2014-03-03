@@ -21,6 +21,7 @@ end
 
 ################ Home (load Readme.txt) #######################
 get '/' do
+      @title = 'wifiRater'
       page = File.read('README.txt')
       page.gsub(/\n/, "</br>")
 end
