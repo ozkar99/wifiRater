@@ -10,20 +10,37 @@ host='localhost'
 database = 'wifiRater'
 
 
-con = Mysql.new host, user, pass, database
-
-
 
 ######################## Auth ##########################
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   username == user and password == pass
 end
 
-################ Home (load Readme.txt) #######################
+################ Home #######################
 get '/' do
-      @title = 'wifiRater'
-      page = File.read('README.txt')
-      page.gsub(/\n/, "</br>")
+    
+"
+<head>
+<title>wifiRaterService</title>
+</head>
+
+<body>
+  <h2>This is a RESTfull API Service.</h2>
+  </br>
+
+  <ul>
+    <li>/Ratings/ -> returns a list of bssid,ratings pairs.  <b>[{bssid, rating}, {bssid, rating}]</b> </li>
+    <li>/Ratings/:bssid  -> returns only specified bssid pair. <b>{bssid, rating}</b> </li>
+    <li>/Ratings/:bssid/:rating -> updates or insert into the database the specified bssid,rating pair.</li>
+    <li>/User/:username -> returns the hashed password of the specified user. </li>
+  </ul>
+  </br>
+
+  Powered by <a href='http://www.openbsd.org/'> <img src='http://www.openbsd.org/art/puffy/puflogh200X50.gif' /> </a>
+  
+</body>
+"
+
 end
 
 ########################### Ratings #############################
@@ -31,6 +48,7 @@ end
 #send all the ratings
 get '/Ratings/?' do
 
+	con = Mysql.new host, user, pass, database
 	#dem whole ratings
     rs = con.query("SELECT * FROM Ratings")
     
@@ -39,13 +57,13 @@ get '/Ratings/?' do
     rs.each_hash do |col|
         output << col
     end
-
     return output.to_json()
 
 end
 
 #Send bssid and rating pair
 get '/Ratings/:bssid/?' do
+	con = Mysql.new host, user, pass, database
     rs = con.query("SELECT * FROM Ratings WHERE bssid='#{params[:bssid]}'")
     rs.fetch_hash().to_json()
 end 
@@ -53,6 +71,7 @@ end
 #Recieve new rating for bssid
 get '/Ratings/:bssid/:rating/?' do
     
+	con = Mysql.new host, user, pass, database
     #check if record exist
     rs = con.query("SELECT * FROM Ratings WHERE bssid='#{params[:bssid]}'")
     
@@ -77,6 +96,7 @@ end
 
 #Send user hashed passwd
 get '/User/:user/?' do
+	con = Mysql.new host, user, pass, database
     rs = con.query("SELECT passwd FROM Users WHERE user='#{params[:user]}'")
     rs.fetch_row()
 end
