@@ -1,15 +1,17 @@
 #!/usr/bin/ruby
 
-require 'sinatra'
+require 'sinatra/base'
 require 'json'
 require 'mysql'
+
+class WifiRaterService < Sinatra::Base
+
+########## Database Variables ###################
 
 user='furby'
 pass='furby'
 host='localhost'
 database = 'wifiRater'
-
-
 
 ######################## Auth ##########################
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
@@ -100,3 +102,7 @@ get '/User/:user/?' do
     rs = con.query("SELECT passwd FROM Users WHERE user='#{params[:user]}'")
     rs.fetch_row()
 end
+
+
+
+end #end class
