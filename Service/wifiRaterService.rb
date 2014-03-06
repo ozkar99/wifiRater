@@ -1,5 +1,6 @@
 #!/usr/bin/ruby
 
+#require 'bcrypt'
 require 'sinatra/base'
 require 'json'
 require 'mysql'
@@ -34,7 +35,6 @@ get '/' do
     <li>/Ratings/ -> returns a list of bssid,ratings pairs.  <b>[{bssid, rating}, {bssid, rating}]</b> </li>
     <li>/Ratings/:bssid  -> returns only specified bssid pair. <b>{bssid, rating}</b> </li>
     <li>/Ratings/:bssid/:rating -> updates or insert into the database the specified bssid,rating pair.</li>
-    <li>/User/:username -> returns the hashed password of the specified user. </li>
   </ul>
   </br>
 
@@ -103,6 +103,15 @@ get '/User/:user/?' do
     rs.fetch_row()
 end
 
+/* Create Bcrypt Hash
+get '/User/:user/:pass/?' do
+	 con = Mysql.new host, user, pass, database
+   	 mypass = BCrypt::Password.create("#{params[:pass]}")
 
+	 con.query( "INSERT INTO Users (user, passwd) VALUES ('#{params[:user]}', '" + mypass +"')" )
+
+	redirect to("/User/#{params[:user]}")
+end
+/*
 
 end #end class
