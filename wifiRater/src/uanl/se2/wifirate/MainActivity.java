@@ -1,8 +1,6 @@
 package uanl.se2.wifirate;
 
 
-
-
 /*Wifi Imports*/
 import android.net.wifi.WifiManager;
 import android.net.wifi.ScanResult;  
@@ -49,6 +47,14 @@ public class MainActivity extends Activity {
 		if(!wifiManager.isWifiEnabled()) {			
 			Toast.makeText(this, getString(R.string.wifi_on) , Toast.LENGTH_SHORT).show();
 			wifiManager.setWifiEnabled(true);
+		
+			try {
+				Thread.sleep(100000); //wait 10 seconds for wifi to become stable.
+				Toast.makeText(this, getString(R.string.scanning) , Toast.LENGTH_SHORT).show();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
 	    }
 				
 		reScan();
@@ -73,8 +79,8 @@ public class MainActivity extends Activity {
 	}
 	
 	/*Custom Functions*/
-	protected List<ScanResult> getScanResults() {						
-			wifiManager.startScan();					 									
+	protected List<ScanResult> getScanResults() {		
+			wifiManager.startScan();	
 			return wifiManager.getScanResults();
 	}
 
