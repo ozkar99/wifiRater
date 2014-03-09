@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
 			wifiManager.setWifiEnabled(true);
 		
 			try {
-				Thread.sleep(100000); //wait 10 seconds for wifi to become stable.
+				wait(100000); //wait 10 seconds for wifi to become stable.
 				Toast.makeText(this, getString(R.string.scanning) , Toast.LENGTH_SHORT).show();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
