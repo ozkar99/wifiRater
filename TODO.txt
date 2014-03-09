@@ -1,0 +1,59 @@
+1) Login (Usando bcrypt)
+	Obtener hash via API mediante http://se2.ozkar.org/User/:user/
+	Comparar passwd suministrada vs provista por el API.
+
+2) Listener para cambio de estrellas:
+	Hacer update tanto via API como en SQLite local.
+    Para API update hacer http://se2.ozkar.org/Ratings/:bssid/:rating luego jalarse el cambio y metrlo a la sqlite (con lo del punto 4)
+
+3) Crear metodo para jalarse base de datos via http://se2.ozkar.org/Ratings/
+	Luego parsear el json e insertar en la base de datos SQLite local.
+	Esto seria en el onCreate de la base de datos de SQLite y Crear una opcion para hacerlo manualmente.
+
+4) Crear metodo para jalarse del sqlite el rating e insertar al SQLite en base a bssid
+	Si no tenemos en sqlite -> checar en api: si se encuentra jalarlo, sino darle update hasta el cambio de estrellas, luego meterlo hacia el sqlite.
+
+5) Tema para la aplicacion
+	Crear un tema bonito, un tema custom nos da chingos de puntos.
+
+
+=====================================================================
+Criterios Para Evaluacion Cumplidos Segun el XML:
+
+Descripcion -> Puntaje
+----------------------------------------------------------------------
+Seguridad En Accesso: 11pts
+  Usuario y Contraseña -> 3pts
+  Usuario y Contraseña Encriptada -> 5pts
+	Total Seguridad: 8pts
+
+Uso de SQLite:
+  Almacena datos para posterior uso -> 1pt
+  Lee datos para uso e aplicacion -> 1pt
+  Actualiza Version -> 2pts
+  Mantiene Datos Entre Versiones -> 5pt
+	Total SQLite: 9pts
+
+Uso Perifericos: 10pts
+  Activa Periferico -> 1pt
+  Manipula para uso de aplicacion -> 6pt
+	Total Perifericos: 7pts
+
+Aplicacion Configurable: 
+  Cambia de idioma -> 2pts
+	Total Aplicacion Configurable: 2pts
+
+Diseño de Aplicacion:
+  Uso Estandares -> 2pts
+  Diseño Propio -> 5pts
+  Adaptacio a Rotacion -> 10pts
+  Usabilidad -> 5pts
+  Accesibilidad -> 10pts
+	Total Diseño: 32pts
+
+Contenido Externo:
+  Uso de Apis -> 3pts
+  Uso de Web Service -> 3pts
+	Total Contenido Externo: 6pts
+-----------------------------------------------------------------------
+Total: 64pts
