@@ -37,7 +37,8 @@ public class MainActivity extends Activity {
 		
 		/*Get the shit we need into usable variables*/
 		wifiManager = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);				             
-        lvWifis = (ListView)findViewById(R.id.lvWifis);                
+        lvWifis = (ListView)findViewById(R.id.lvWifis);  
+        
 	}
 		
 	@Override
@@ -55,10 +56,13 @@ public class MainActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
+						
 	    }
 				
 		reScan();
-				
+		
+		
+		
 		super.onResume();
 	}
 		

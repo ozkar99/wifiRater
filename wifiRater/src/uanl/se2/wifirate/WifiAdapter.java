@@ -1,11 +1,13 @@
 package uanl.se2.wifirate;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.net.wifi.ScanResult;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,14 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.RatingBar;
+import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.TextView;
 
 
 
 public class WifiAdapter extends ArrayAdapter<ScanResult> {
 	
-	  		  	  
-	  
+	  		  	  	  	  
+	  private static final Locale Locale = java.util.Locale.ENGLISH;
 	  private final SQLiteDatabase db;	
 	  private final Context context;
 	  private final List<ScanResult> values;
@@ -37,9 +40,11 @@ public class WifiAdapter extends ArrayAdapter<ScanResult> {
 	  }
 
 
+	@SuppressLint("DefaultLocale")
 	@Override
-	  public View getView(int position, View convertView, ViewGroup parent) {
+	  public View getView(final int position, View convertView, ViewGroup parent) {
 	   
+				
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    
 	    View rowView = inflater.inflate(R.layout.rowlayout, parent, false);
@@ -47,13 +52,13 @@ public class WifiAdapter extends ArrayAdapter<ScanResult> {
 	    TextView txtEssid = (TextView) rowView.findViewById(R.id.lbEssid);
 	    RatingBar rbWifi = (RatingBar) rowView.findViewById(R.id.rbWifi);
 	    
-	   
-	    
+	   	    
 	    txtEssid.setText(values.get(position).SSID);
 	    	    	    
 	    
 	    /*Set the rating stars*/
-	    String bssid = values.get(position).BSSID;
+	    String bssid = values.get(position).BSSID.toUpperCase(Locale);	  
+	    
 	    Integer rating=0;
 	    
 	    /*Get values from internet service my nigga*/
@@ -67,7 +72,7 @@ public class WifiAdapter extends ArrayAdapter<ScanResult> {
 	    
 		    try {	    	
 		      joRating = jo.getString("rating");
-		      joBssid = jo.getString("bssid");
+		      joBssid = jo.getString("bssid").toUpperCase();
 		    } catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -83,14 +88,15 @@ public class WifiAdapter extends ArrayAdapter<ScanResult> {
 		    	
 		    	 if (c.moveToFirst()) {
 		    		 /*update the record*/
-		    		 db.execSQL("UPDATE rating SET value=" + joRating + "WHERE bssid='" + joBssid +"';");
+		    		 db.execSQL("UPDATE Ratings SET rating=" + joRating + " WHERE bssid='" + joBssid +"'");
 		    	 } else {
 		    		 /*Add the record*/
-		    		 db.execSQL("INSERT INTO rating (rating, bssid) VALUES (" + joRating + " , ' " + joBssid + "');");
+		    		 db.execSQL("INSERT INTO Ratings (rating, bssid) VALUES (" + joRating + " , '" + joBssid + "')");
 		    	 }
 	    	}
 	    
 	    }
+	   
 	    /*Make sure db and cursor are not null*/
 	    if(db != null) {
 	    	 Cursor c = db.rawQuery("SELECT rating FROM Ratings WHERE bssid='" + bssid + "'", null);
@@ -102,11 +108,19 @@ public class WifiAdapter extends ArrayAdapter<ScanResult> {
 	    	 }	    	 	    	
 	    }
 	   
-	    rbWifi.setRating(rating);   
+	    rbWifi.setRating(rating);   	    	   	    	   
 	    
-	    /* Aqui poner el listener 
-	     * para el cambio de estrellas
-	     */
+	    /* Dem Starz changes*/	    
+	    /*Position being 'final' on getView is the key for this to actually work correctly, else position would get overwritten by the last item*/
+	    rbWifi.setOnRatingBarChangeListener(new OnRatingBarChangeListener() {
+			public void onRatingChanged(RatingBar ratingBar, float rating,
+					boolean fromUser) {		 					
+					JSONParser jp = new JSONParser();
+					String myBssid = values.get(position).BSSID.toUpperCase();
+					String strRating = Float.toString(rating);
+					jp.setRating(myBssid, strRating);
+				}
+			});
 	    
 	    return rowView;
 	  }

@@ -31,7 +31,13 @@ public class JSONParser {
    	
     // constructor
     public JSONParser() {}
-    		
+    
+    
+    /*Update rating of my bssid */
+    public void setRating(String bssid, String rating) {
+    	   GET(baseUrl + "Ratings/" + bssid + "/" + rating);
+    }
+    
 	/*get the rating based on bssid*/
 	public JSONObject getRating(String bssid) {		
 		return string2JSON( GET(baseUrl + "Ratings/" + bssid) );

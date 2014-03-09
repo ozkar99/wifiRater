@@ -1,5 +1,7 @@
 package uanl.se2.wifirate;
 
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -8,7 +10,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class SQLite extends SQLiteOpenHelper {
 
 	SQLiteDatabase db;
-	JSONParser jp;
 	
 	public SQLite(Context context, String name, CursorFactory factory,
 			int version) {
@@ -21,12 +22,11 @@ public class SQLite extends SQLiteOpenHelper {
         /*Create the tables*/
 		db.execSQL("CREATE TABLE Ratings (rating INTEGER, bssid TEXT)");       
         
-		jp = new JSONParser ();
-        
+		JSONParser jp = new JSONParser ();
+        JSONObject jObj = jp.getRating();
 		
-        /*
-         * db.execSQL("INSERT INTO Ratings (rating, bssid) VALUES (5, '00:23:69:91:fb:35')");
-         * db.execSQL("INSERT INTO Ratings (rating, bssid) VALUES (3, '00:1f:9f:a3:f5:d4')");
+        /*TODO: parse el jObj y por cada chingadera del array empezar rellenar nuestro SQLite local.
+         * db.execSQL("INSERT INTO Ratings (rating, bssid) VALUES (5, '00:23:69:91:fb:35')");        
          * 
          */
        
