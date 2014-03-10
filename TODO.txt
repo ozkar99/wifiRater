@@ -4,6 +4,7 @@
 2) Tema para la aplicacion
 	Crear un tema bonito, un tema custom nos da chingos de puntos.
 
+3) Add "ReScan" to the settings menu, and enable functionality for it.
 
 =====================================================================
 Criterios Para Evaluacion Cumplidos Segun el XML:
