@@ -58,11 +58,10 @@ public class MainActivity extends Activity {
 			} 
 						
 	    }
-				
-		reScan();
 		
 		
 		
+		reScan();											
 		super.onResume();
 	}
 		
