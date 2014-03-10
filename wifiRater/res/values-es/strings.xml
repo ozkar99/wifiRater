@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">WifiRate</string>
-    <string name="action_settings">Settings</string>  
+    <string name="action_settings">Sondear</string>  
     <string name="wifi_on">Habilitando WiFi</string>  
     <string name="btn_scan_text">Escaneo</string>
     <string name="scanning">Empezando Sondeo</string>
