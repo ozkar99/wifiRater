@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 /*Regular Imports*/
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.app.Activity;
 import android.content.Context;
 import android.view.Menu;
@@ -47,22 +48,12 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		
 		/*Enable Wifi if its not ON*/				
-		if(!wifiManager.isWifiEnabled()) {			
-			Toast.makeText(this, getString(R.string.wifi_on) , Toast.LENGTH_SHORT).show();
+		if(!wifiManager.isWifiEnabled()) {					
+			Toast.makeText(this, getString(R.string.wifi_on) , Toast.LENGTH_LONG).show();
 			wifiManager.setWifiEnabled(true);
-		
-			try {
-				wait(100000); //wait 10 seconds for wifi to become stable.
-				Toast.makeText(this, getString(R.string.scanning) , Toast.LENGTH_SHORT).show();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+			SystemClock.sleep(5000); //wait 5 seconds for wifi to become stable.			
+	    } 
 						
-	    }
-		
-		
-		
 		reScan();											
 		super.onResume();
 	}
@@ -107,6 +98,7 @@ public class MainActivity extends Activity {
 	}
 	
 	protected void reScan(){
+		Toast.makeText(this, getString(R.string.scanning_start) , Toast.LENGTH_SHORT).show();
 		/*Fill the list with the scan results*/
 		scanResults = getScanResults();
 		
@@ -114,7 +106,7 @@ public class MainActivity extends Activity {
 		if (scanResults != null) {
 			fillWifiList(scanResults);
 		}
-		
+		Toast.makeText(this, getString(R.string.scanning_finished) , Toast.LENGTH_SHORT).show();
 	}
 
 	

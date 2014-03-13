@@ -3,9 +3,10 @@
 
     <string name="app_name">WifiRate</string>
     <string name="action_settings">Sondear</string>  
-    <string name="wifi_on">Habilitando WiFi</string>  
+    <string name="wifi_on">Habilitando WiFi...</string>  
     <string name="btn_scan_text">Escaneo</string>
-    <string name="scanning">Empezando Sondeo</string>
+    <string name="scanning_start">Empezando Sondeo...</string>
+    <string name="scanning_finished">Sondeo Terminado</string>
     
 
 </resources>
