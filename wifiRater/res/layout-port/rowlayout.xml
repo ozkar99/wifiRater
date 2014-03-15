@@ -15,7 +15,7 @@
 
         <RatingBar
             android:id="@+id/rbWifi"
-            android:layout_width="244dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5" />
 
