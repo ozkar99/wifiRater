@@ -1,9 +1,6 @@
 1) Login (Usando bcrypt)
 	Obtener Hash key via JSONParser.getUserHash(user).
 
-2) Tema para la aplicacion
-	Crear un tema bonito, un tema custom nos da chingos de puntos.
-
 =====================================================================
 Criterios Para Evaluacion Cumplidos Segun el XML:
 
