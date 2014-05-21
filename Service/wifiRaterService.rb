@@ -90,7 +90,7 @@ get '/Ratings/:bssid/:rating/?' do
 
 end
 
-
+=begin UserModule
 ################### User hashes:#########################
 get '/User/?' do
     "Nigga please...</br>especify username";
@@ -103,7 +103,6 @@ get '/User/:user/?' do
     rs.fetch_row()
 end
 
-/* Create Bcrypt Hash
 get '/User/:user/:pass/?' do
 	 con = Mysql.new host, user, pass, database
    	 mypass = BCrypt::Password.create("#{params[:pass]}")
@@ -112,6 +111,6 @@ get '/User/:user/:pass/?' do
 
 	redirect to("/User/#{params[:user]}")
 end
-/*
+=end
 
 end #end class
